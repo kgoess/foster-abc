@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>
+<%$title .' See and Hear'%>
+</title>
+</head>
+<body>
+
+<EMBED src="../midi/<%$songid%>.mid?key=<%$key%>&t=<%$t%>" width="1" height="1" autostart="true" loop="true" volume="90" hidden="true"></EMBED>
+<NOEMBED><BGSOUND src="../midi/<%$songid%>.mid?key=<%$key%>&t=<%$t%>"></noembed> 
+
+<IMG src="../jpg/<%$songid%>.jpg?key=<%$key%>&t=<%$t%>"/>
+</body>
+</html>
+
+<%flags>
+    inherit => undef
+</%flags>
+
+<%args>
+$key
+$t=>''
+$songid=>''
+</%args>
+
+<%init>
+
+($songid)  ||= $m->dhandler_arg;
+my $title = $songid;
+
+$songid =~ s/.html//;
+
+</%init>
+
+
+

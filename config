@@ -1,0 +1,22 @@
+<%perl>
+
+return {
+
+    #the directory where your abc files are
+    srcdir  => $r->dir_config('MasonCompRoot').'/abc-src',
+
+    #path to various executables
+    abcm2ps => '/usr/local/bin/abcm2ps',
+    abc2abc => '/usr/local/bin/abc2abc',
+    abc2midi => '/usr/local/bin/abc2midi',
+
+    #path to gs (ghostscript) executable
+    gs      => '/usr/bin/gs',
+
+    #place for temp files, needs to be writeable by apache owner
+    tmpdir => '/tmp'
+};
+
+
+
+</%perl>

@@ -7,6 +7,8 @@ DIR_FLAGS=-C -o $(INSTALL_OWNER) -g $(INSTALL_GROUP) -m 0755
 WEBSERVER_OWNER=nobody
 WEBSERVER_GROUP=nobody
 
+# end of user settings
+
 DISTVNAME=abc-fakebook-0.01
 
 

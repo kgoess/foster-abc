@@ -1,0 +1,42 @@
+<hr>
+<h2>Jaypegs and midis and stuff, oh my!</h2>
+What are all these three-letter acronym links on this page?
+<dl>
+<dt>abc</dt>
+   <dd><a href="#abc">ABC</a> is a portable, human readable format for writing down music.
+It's very handy, easy to learn and use, and is supported by a <i>ton</i> of free software
+and shareware.  If you're into music and you don't know about it, you should.</dd>
+<dt>pdf</dt>
+   <dd>Stands for "Portable Document Format", readable by the free <a "href=http://www.adobe.com/products/acrobat/readstep2.html"</a>Adobe Acrobat</a>. Use this version to get nice, printable sheet music. Created by <a href="#abcm2ps">abcm2ps</a> and <a href="#ghostscript">Ghostscript</a></dd>
+<dt>jpg</dt>
+   <dd>An image of the sheet music.  You can use this if for some reason PDF doesn't work for you. Also created by <a href="#abcm2ps">abcm2ps</a> and <a href="#ghostscript">Ghostscript</a>.</dd>
+<dt>midi</dt>
+   <dd><a href="http://www.midi.org/about-midi/aboutmidi3.shtml">Music Instrument Digital Interface</a>, clicking on that link should make your computer play the music.  If it doesn't then give that friend of yours who knows computers a call.</dd>
+</dl>
+
+<hr>
+<h2>How did you do all this?</h2>
+If I have accomplished great things, it is because I have stood on the shoulders of giants. --Isaac Newton
+<p>
+Actually, I did very little, but re-used a lot of very handy things:
+<ul>
+    <li><a href="http://www.masonhq.com/">HTML::Mason</a> is a set of Perl libraries
+for building web sites.  Inspired by <a href="http://www.perl.com/pub/a/2004/04/01/masongal.html">this article</a>, I used the caching and autohandling features to build this site.
+<p>
+I upload one version of each song in ABC format, and all the other formats in all the other keys are generated on-demand and cached.  The cache is keyed to the original file, so if I make changes to it, the other versions are regenerated when they're requested.
+    </li>
+    <li><a name="abc" href="http://www.gre.ac.uk/~c.walshaw/abc/">ABC</a> is a simple, portable way to transcribe music that's been around for more than a dozen years.  Since it's simple and also open, it's inspired a whole bunch of useful free software around it, including some of the following.
+    <li><a href="http://moinejf.free.fr/">abcm2ps</a> is sofware that converts ABC music to Postcript, a printer format developed by Adobe. abcm2ps is released under the <a href="http://www.gnu.org/licenses/licenses.html#GPL">GNU General Public License (GPL)</a> and Postscript is an open standard, and all these free and open standards make all this work possible!
+     </li>
+    <li>abc2midi and abc2abc are programs from the <a href="http://abc.sourceforge.net/abcMIDI/">abcMIDI project</a>, also released unler the GNU GPL.  The former creates the midi files onthe site, and the latter handles transposing keys.
+    </li>
+    <li><a name="ghostscript" href="http://abc.sourceforge.net/abcMIDI/">Ghostscript</a> is a PostScript interpreter, which lets me change the Postscript output from abcm2ps into jpg and PDF files.  Did I mention the GPL?
+    </li>
+
+<hr>
+<h2>Can I Have One, Too?</h2>
+Well, sure, kid.  The ludicrously tiny collection of scripts that generates this site is available right <a href="download.html">here</a>.  It's under the GPL, too.  Help yourself.   
+
+
+       
+<hr>

@@ -2,3 +2,5 @@ CVS
 \.tar\.gz$
 \.cvsignore$
 abc-src
+download.html
+software

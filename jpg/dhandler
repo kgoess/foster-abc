@@ -29,7 +29,7 @@ $songid = substr($songid,0,100);
 
     #here's our output method
 my $send_img = sub {
-      $r->content_type( "image/jpg" );
+      $r->content_type( "image/jpeg" );
       $r->send_http_header;
       $m->out($_[0]);
       $m->abort(200);

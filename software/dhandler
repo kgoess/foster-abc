@@ -1,3 +1,4 @@
+%#THIS FILE IS NOT PART OF MAKE DIST OR MAKE INSTALL
 <%flags>
     inherit => undef
 </%flags>

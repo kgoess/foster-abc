@@ -1,0 +1,37 @@
+<%flags>
+    inherit => undef
+</%flags>
+
+<%init>
+
+my $version  = $m->dhandler_arg;
+
+$version =~ s/-Changes\.txt$//;
+
+my $dir = '/home/httpd/html/foster-abc/software';
+
+$version =~ s/[^\d\-\.]//g;
+
+
+$version = substr($version,0,40);
+
+my $cache_key = "$version";
+
+my $text = '';
+
+if ( $text = $m->cache( 
+            action    => 'retrieve', 
+            key       => $cache_key,
+            expire_if => sub { (stat "$dir/abc-fakebook-$version.tar.gz")[9] > shift },
+     ) ) { 
+}else{
+    open (PIPE, "/bin/tar -zxvf $dir/abc-fakebook-$version.tar.gz -O abc-fakebook-$version/Changes  |") || die "can't open pipe to tar $dir/abc-fakebook-$version.tar.gz $!";
+    local $/ = undef;
+    $text = <PIPE>;
+    close PIPE;
+    $m->cache( action => 'store', key => $cache_key, value => $text );
+}
+
+$m->out($text);
+return $text;
+</%init>

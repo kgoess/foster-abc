@@ -1,0 +1,79 @@
+
+The package that creates this site is called ABC-Fakebook, and can be used to manage
+a gallery of ABC tunes.  It requires:
+<p>
+
+<div style="margin-left: 40px;">
+	Apache<br>
+	Perl<br>
+	HTML::Mason<br>
+	Ghostscript<br>
+	abcm2ps<br>
+	abc2midi<br>
+</div>
+<p>
+and assumes a Unixy environment.
+<hr>
+<p>
+
+<div style="margin-left: 40px;">
+<%perl>
+
+my $dir = '/home/httpd/html/foster-abc/software';
+
+opendir(DIR, $dir) || die "can't opendir $dir/ $!";
+while (my $file = readdir(DIR)){
+    next unless $file =~ /\.tar.gz$/;
+    my $age = (stat("$dir/$file"))[9];
+    my ($version) = $file =~ /abc-fakebook-(.+?)\.tar.gz/;
+   $m->out(qq{<a href="software/$file">$file</a> @{[scalar localtime($age)]} <a href="software/$version-Changes.txt">Changes.txt</a><br>});
+}
+closedir DIR;
+
+</%perl>
+</div>
+<p>
+<hr>
+
+The site is set up like this:
+
+<pre>
+
+	autohandler
+	config
+	index.html
+	abc-src/
+		*.abc (the source abc files)
+	abc/
+		dhandler
+	pdf/
+		dhandler
+	jpg/
+		dhandler
+	midi/
+		dhandler
+
+</pre>
+Requests to urls for abc/, pdf/, jpg/ or midi/ are handled by the dhandler in 
+that directory which takes care of generating the requested file and caching
+it for future use.
+
+The files are generated using subshells and temp files.  I'd rather use pipes than tempfiles
+but not all the utilities are fully portable, and I wasn't able to find a good solution
+using two-way pipes and/or forking under mod_perl.  I'm open to suggestions.  
+
+If you're curious, the commands used to generate the files look like this:
+<p>
+
+<pre>
+jpg:
+    | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=jpeg -sOutputFile=$tempfilename -q - -c quit 
+
+midi:
+    | abc2midi $tempdir/in.abc -o $tempdir/output.mid
+
+pdf:
+    | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit
+</pre>
+
+<hr>

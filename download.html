@@ -55,15 +55,19 @@ The site is set up like this:
 		dhandler
 
 </pre>
+<p>
+To add new .abc files, just drop them into the abc-src/ directory, everything else
+takes care of itself.
+<p>
 Requests to urls for abc/, pdf/, jpg/ or midi/ are handled by the dhandler in 
 that directory which takes care of generating the requested file and caching
 it for future use.
-
-The files are generated using subshells and temp files.  I'd rather use pipes than tempfiles
-but not all the utilities are fully portable, and I wasn't able to find a good solution
+<p>
+The output is generated using subshells and temp files.  I'd rather use pipes than tempfiles
+but not all the utilities are fully pipeable, and I wasn't able to find a good solution
 using two-way pipes and/or forking under mod_perl.  I'm open to suggestions.  
-
-If you're curious, the commands used to generate the files look like this:
+<p>
+If you're curious, the commands used to generate the output looks like this:
 <p>
 
 <pre>

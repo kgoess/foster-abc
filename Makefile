@@ -9,7 +9,7 @@ WEBSERVER_GROUP=nobody
 
 # end of user settings
 
-DISTVNAME=abc-fakebook-0.02
+DISTVNAME=abc-fakebook-0.03
 
 
 INSTALL=/usr/bin/install

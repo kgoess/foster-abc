@@ -1,4 +1,11 @@
+To Do:
+    - get notes from .abc file and display
+    - accept minor, modes for song keys in transpose list
 
+0.03 2004-04-23
+    - getting srcdir from config in index.html
+    - adding lots of text to various
+    
 0.02 2004-04-22
    - removing dhandler in base dir, not used
    - taking abc files out of distro

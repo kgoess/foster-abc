@@ -15,6 +15,10 @@ $t=>''
 
 my ($songid)  = $m->dhandler_arg;
 
+my $conf = $m->comp('/config');
+
+
+
 	#clean up incoming data
 $t =~ s/[^\d-]//g;
 if ($t > 12 || $t < -12){
@@ -35,7 +39,11 @@ my $send_img = sub {
 my $cache_key = "$songid.$key.$t";
 
 	#if it's already in the cache, just return that
-if ( my $data = $m->cache( action => 'retrieve', key => $cache_key ) ) {
+if ( my $data = $m->cache( 
+            action    => 'retrieve', 
+            key       => $cache_key,
+            expire_if => sub { (stat "$conf->{srcdir}/$songid.abc")[9] > shift },
+     ) ) { 
       $send_img->($data);
 }
 
@@ -49,14 +57,14 @@ my $abctext = $m->comp('/abc/dhandler:get_abc',key=>$key, t=>$t, songid=>$songid
 	#This uses way too many dump tempfiles, but abc2midi doesn't
 	#seem to do stdin or stdout
 
-my $dir = File::Temp::tempdir( DIR => '/tmp', CLEANUP => 1 );
+my $dir = File::Temp::tempdir( DIR => $conf->{tmpdir}, CLEANUP => 1 );
 
 open (F, ">$dir/in.abc") || die "can't open $dir/in $!";
 print F $abctext;
 close F;
 
 	#Here's the pipe to the tempfile:
-my $cmd = "/usr/local/bin/abc2midi $dir/in.abc -o $dir/output.mid";
+my $cmd = "$conf->{abc2midi} $dir/in.abc -o $dir/output.mid";
 `$cmd`;  #needs error checking
 
 -f "$dir/output.mid" || die "abc2midi failed to produce output file: $cmd";
@@ -68,6 +76,7 @@ open (F, "$dir/output.mid") || die "can't open $dir/output.mid $!";
 close F;
 unlink "$dir/output.mid" || die "can't unlink $dir/output.mid $!";
 unlink "$dir/in.abc" || die "can't unlink $dir/in.abc $!";
+rmdir $dir;
 
 	#add it to the cache for next time
 $m->cache( action => 'store', key => $cache_key, value => $img_data );

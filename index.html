@@ -35,10 +35,13 @@ while (my $file = readdir(D)){
         s/[\x0A\x0D]+$//;
         if (/^T:(.+)/){
             $title = $1;    
-        }elsif (/^K:(.+)/){
-            $key = $1;
+        }elsif (/^K:(\w+)/){
+            $key = $1 unless $key; #just take the first one
+            $key =~ s/(m|[Mm]ix|[Dd]or)$//; #just pretend they're regular keys for now
         }elsif (/^N:(.+)/){
             $notes .= $1.' ';
+        }elsif (/^%%/){
+            next;
         }elsif (! /^[A-Z:]/){
             last;
         }
@@ -124,6 +127,7 @@ my @outputs = (
     [qw(pdf pdf pdf)],    
     [qw(jpg jpg jpg)],
     [qw(midi midi mid)],    
+    ['See&Hear',qw(seeandhear html)],    
 #   [qw(postscript ps ps)],
 );
 my $basedir = Apache->request->dir_config('basedir');
@@ -158,7 +162,7 @@ $id
 
 <%perl>
 
-my $pos = $keypos{$key};
+my $pos = $keypos{$key} ;
 
 
 my $NUM_KEYS = 11;
@@ -175,6 +179,7 @@ for (my $i=-($NUM_KEYS); $i <= ($NUM_KEYS); ++$i){
     # for Gb/F#, for which it uses F# instead of Gb.
     # So we sort the two keys by #/b with 'b' coming first
     # and if it's Gb/F# then we reverse it.
+    next unless $keys_at_pos{$thispos};
     my @thesekeys = sort { substr($b,1,1) cmp substr($a,1,1) } 
                          @{$keys_at_pos{$thispos}};
     if (lc(substr($thesekeys[0],0,2)) eq 'gb') {

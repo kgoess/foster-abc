@@ -3,7 +3,7 @@
 return {
 
     #the directory where your abc files are
-    srcdir  => $r->dir_config('MasonCompRoot').'/abc-src',
+    srcdir  => $r->dir_config('MasonCompRoot').'/'.$r->dir_config('basedir').'/abc-src',
 
     #path to various executables
     abcm2ps => '/usr/local/bin/abcm2ps',

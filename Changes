@@ -1,7 +1,12 @@
 To Do:
     - accept minor, modes for song keys in transpose list
 
-0.08
+0.09 2005-02-05
+    - adding See&Hear target, faking key handling for minor, modes
+    - make install shouldn't overrwrite beforetext, aftertext since the
+      user has probably put their own stuff in there
+
+0.08 2005-02-05
     - aha, abc2midi can use stdin instead of a temp file
 
 0.06 

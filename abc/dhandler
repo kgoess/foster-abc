@@ -25,11 +25,11 @@ my ($text, $title) = $m->current_comp->call_method('get_abc', key=>$key, t=>$t, 
 
 </%init>
 
-# ******************************
-# get_abc METHOD
-# making this a method so that other components
-# can call it and take advantage of its cacheing
-# ******************************
+%# ******************************
+%# get_abc METHOD
+%# making this a method so that other components
+%# can call it and take advantage of its cacheing
+%# ******************************
 <%method get_abc>
 <%args>
 $key
@@ -38,7 +38,10 @@ $songid=>''
 </%args>
 <%init>
 
-my $srcdir = '/home/httpd/html/foster-abc/abc-src';
+my $conf = $m->comp('/config');
+my $srcdir = $conf->{srcdir};
+
+
 
 $key =~ s/[^ABCDEFG#b,]//gi;
 $key = substr($key,0,3);
@@ -57,12 +60,13 @@ my $cache_key = "$songid.$key.$t";
 my $text = '';
 my $title;
 
-if ( $text = $m->cache( action => 'retrieve', 
-                        key => $cache_key,
-                        expire_if => sub { (stat "$srcdir/$songid.abc")[9] > shift },
-     ) ) {
+if ( $text = $m->cache( 
+            action    => 'retrieve', 
+            key       => $cache_key,
+            expire_if => sub { (stat "$conf->{srcdir}/$songid.abc")[9] > shift },
+     ) ) { 
     ($title) = $text =~ /^T:(.+)$/m;
-    return ($text, $title);
+    return (wantarray ? ($text, $title) : $text);
 }
 
 
@@ -73,7 +77,7 @@ if (! $t ){
     $text = <F>;
     close F;
 }else{
-    open (PIPE, "/usr/local/bin/abc2abc $srcdir/$songid.abc -b -t $t |");
+    open (PIPE, "$conf->{abc2abc} $srcdir/$songid.abc -b -t $t |") || die "can't open pipe abc2abc $!";
     local $/ = undef;
     $text = <PIPE>;
     close PIPE;
@@ -82,7 +86,7 @@ $m->cache( action => 'store', key => $cache_key, value => $text );
 
 ($title) = $text =~ /^T:(.+)$/m;
     
-return ($text, $title);
+return (wantarray ? ($text, $title) : $text);
 
 </%init>
 

@@ -2,7 +2,7 @@ abc-fakebook
 
 ==================================================
 
-Author: Kevin M. Goess <fosterabc@goess.org>
+Author: Kevin M. Goess <fosterabc-at-goess.org>
 
 License: This software is released under the GNU
          General Public License, see the "License"

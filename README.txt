@@ -1,10 +1,40 @@
+abc-fakebook
+
+==================================================
+
+Author: Kevin M. Goess <fosterabc@goess.org>
+
+License: This software is released under the GNU
+         General Public License, see the "License"
+         file accompanying the software.
+
+
+Requirements:
+
+ABC-Fakebook was developed with the following software:
+
+	Apache 1.3.26
+	Perl 5.6.1
+	HTML::Mason 1.04
+	Ghostscript 5.5
+	abcm2ps 3.7.18
+	abcmidi 1.41
+
+THE SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTIES OF ANY KIND,
+INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OF ACCURACY OR
+COMPLETENESS OF ANY INFORMATION CONTAINED IN THE SOFTWARE OR IMPLIED
+WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+
+======================================================
+
 INSTALLATION
 
-1) Look at the settings in the Makefile
+1) Look at the settings in the Makefile, and change to suit.
 
-2) Look at the settings in the config component.
+2) Look at the settings in the config component, install the 
+   software that's mentioned there, and change to suit.
 
-3) Add to your httpd.conf something like this:
+3) Add to your httpd.conf something like this, and restart apache:
 
     PerlSetVar MasonCompRoot /home/httpd/html/foster-abc
     PerlSetVar MasonDataDir /home/httpd/html/foster-abc/mason
@@ -21,4 +51,8 @@ INSTALLATION
     <Location /foster-abc/images>
         SetHandler default
     </Location>
+
+4) Type 'make install'.
+
+===========================================================
 

@@ -1,7 +1,9 @@
 Changes
 MANIFEST
 MANIFEST.SKIP
+MANIFEST.bak
 Makefile
+README.txt
 abc-src/amoustache.abc
 abc-src/beautifuldreamer.abc
 abc-src/gentleannie.abc
@@ -9,6 +11,7 @@ abc-src/ohsusanna.abc
 abc-src/olddogtray.abc
 abc/dhandler
 autohandler
+config
 dhandler
 images/bg1.gif
 images/foster-logo.jpg

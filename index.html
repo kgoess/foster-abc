@@ -11,6 +11,7 @@ Pick your key and click on a format.
 <p>
 
 <form name="baseform">
+<table BORDER="1">
 <%perl>
 
 my $conf = $m->comp('/config');
@@ -24,7 +25,9 @@ while (my $file = readdir(D)){
 
     next unless -f "$srcdir/$file";
     next unless $file =~ /\.abc$/i;
-    my ($title, $key);
+    my ($title, $key, $notes);
+    
+    $notes = '';
     
     open (F, "$srcdir/$file") || die "can't open $srcdir/$file $!";
     while (<F>){
@@ -33,25 +36,28 @@ while (my $file = readdir(D)){
             $title = $1;    
         }elsif (/^K:(.+)/){
             $key = $1;
+        }elsif (/^N:(.+)/){
+            $notes .= $1.' ';
         }elsif (! /^[A-Z:]/){
             last;
         }
     }    
     close F;
 
-    $files{$title} = [$file, $key];
+    $files{$title} = [$file, $key, $notes];
 }
 
 foreach my $title (sort keys %files) {
-    my ($file, $key) = @{$files{$title}};
+    my ($file, $key, $notes) = @{$files{$title}};
 
     $file =~ s/\.abc//;
-    $m->current_comp->call_method('dorow', title=>$title, id=>$file, key=>$key);
+    $m->current_comp->call_method('dorow', title=>$title, id=>$file, 
+                                           key=>$key, notes=>$notes);
 
 }    
 
 </%perl>
-
+</table>
 </form>
 
 <p>
@@ -106,6 +112,7 @@ foreach my $key (keys %keypos){
 $id
 $key
 $title
+$notes=>''
 </%args>
 <%init>
 #this should be in a config file somewhere
@@ -118,14 +125,17 @@ my @outputs = (
 #   [qw(postscript ps ps)],
 );
 </%init>
-<b><%$title%></b>:
+<TR>
+<TD><b><%$title%></b>:
 
 %foreach my $o (@outputs){
 %    my ($display_name, $out_type, $ext) = @$o;
 <a href="javascript:document.location = '<%$out_type%>/<%$id%>.<%$ext%>?key=<%$key%>&t='+document.baseform.keyselect<%$id%>.options[document.baseform.keyselect<%$id%>.selectedIndex].value;"><%$display_name%></a> 
 %}
 <& '/index.html:keyselect', key => $key, id=>$id &>
-<br>
+</TD>
+<TD WIDTH="30%" ALIGN="RIGHT"><FONT SIZE="-1"><I><%$notes%></I></FONT></TD>
+</TR>
 </%method>
 %# *********************************************
 %# end dorow

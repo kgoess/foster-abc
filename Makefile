@@ -28,7 +28,7 @@ help :: default
 
 install ::
 	$(INSTALL) $(DIR_FLAGS) -d $(INSTDIR)
-	$(INSTALL) $(FILE_FLAGS) index.html dhandler autohandler $(INSTDIR)
+	$(INSTALL) $(FILE_FLAGS) index.html dhandler autohandler config $(INSTDIR)
 	for d in $(FORMAT_DIRS) ; do \
 		$(INSTALL) $(DIR_FLAGS) -d $(INSTDIR)/$$d ;\
 		$(INSTALL) $(FILE_FLAGS) $$d/dhandler $(INSTDIR)/$$d/ ;\

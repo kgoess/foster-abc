@@ -14,7 +14,8 @@ Pick your key and click on a format.
 <table BORDER="1">
 <%perl>
 
-my $conf = $m->comp('/config');
+my $basedir = Apache->request->dir_config('basedir');
+my $conf = $m->comp("/$basedir/config");
 my $srcdir = $conf->{srcdir};
 
 opendir(D, $srcdir) || die "can't opendir $srcdir $!";
@@ -52,7 +53,8 @@ foreach my $title (sort keys %files) {
 
     $file =~ s/\.abc//;
     $m->current_comp->call_method('dorow', title=>$title, id=>$file, 
-                                           key=>$key, notes=>$notes);
+                                           key=>$key, notes=>$notes,
+					   );
 
 }    
 
@@ -124,6 +126,7 @@ my @outputs = (
     [qw(midi midi mid)],    
 #   [qw(postscript ps ps)],
 );
+my $basedir = Apache->request->dir_config('basedir');
 </%init>
 <TR>
 <TD><b><%$title%></b>:
@@ -132,7 +135,7 @@ my @outputs = (
 %    my ($display_name, $out_type, $ext) = @$o;
 <a href="javascript:document.location = '<%$out_type%>/<%$id%>.<%$ext%>?key=<%$key%>&t='+document.baseform.keyselect<%$id%>.options[document.baseform.keyselect<%$id%>.selectedIndex].value;"><%$display_name%></a> 
 %}
-<& '/index.html:keyselect', key => $key, id=>$id &>
+<& "/$basedir/index.html:keyselect", key => $key, id=>$id &>
 </TD>
 <TD WIDTH="30%" ALIGN="RIGHT"><FONT SIZE="-1"><I><%$notes%></I></FONT></TD>
 </TR>

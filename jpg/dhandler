@@ -85,6 +85,6 @@ unlink $tempfilename || die "can't unlink $tempfilename $!";
 $m->cache( action => 'store', key => $cache_key, value => $img_data );
 
     #and send it out
-$send_img->($img_data.'foo');
+$send_img->($img_data);
 
 </%init>

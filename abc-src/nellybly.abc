@@ -1,23 +1,19 @@
-X: 1
+X:1
 T:Nelly Bly
 M:4/4
 L:1/8
 C:Stephen Foster, 1850
 Z:Kevin Goess 4/19/200
-N: See "Nellie Bly: Pioneer Woman Investigative Journalist"
-N: http://home.att.net/~gapehenry/NellieBly.html
-N: Took her pen name from this song.
-K:C
+N:See "Nellie Bly: Pioneer Woman Investigative Journalist"
+N:http://home.att.net/~gapehenry/NellieBly.html
+N:Took her pen name from this song.
 Q:150
-"C" EFG2EFG2 |E>FGA "G" D2zF | "C" E>FGG "F" ABcc | "G7" B>cd>B "C" c3z |
-"C" E>F GG EFGG | E>F GA "G" D2 z F | "C" EFG>G "F" ABcc | "G" B>cd>B "C" c3z ||
+K:C
+"C" EFG2EFG2 |E>FGA "G" D2zF | "C" E>FGG "F" ABcc | 
+w:Nel-ly Bly! Nel-ly Bly! bring de broom a-long, We'll sweep the kit-chen clean, my dear, and 
+"G7" B>cd>B "C" c3z |"C" E>F GG EFGG | E>F GA "G" D2 z F | "C" EFG>G "F" ABcc | "G" B>cd>B "C" c3z ||
+w:hab a lit-tle song. Poke de wood, my la-dy lub, and make de fire_ burn, And while I take de ban-jo down, just gib de mush a turn.
 "C" e2cc "F" c2AA | "C" GE E>C "G" D2zF | "C" EFG2 "F" ABc z/c/ | "G7" Bcd>B "C" c3 z|
+w:Heigh! Nel-ly Ho! Nel-ly lis-ten love to me, I'll sing for you, play for you, a dul-cet me-lo-dy.
 "C" e2dc "F" d2cA | "C" GE "(D7)" E>C "G" D2 zF | "C" EFG2 "F" ABc z/c/ | "G7" Bcd>B "C" c4|]
-W:Nelly Bly! Nelly Bly!  bring de broom along,
-W:We'll sweep de kitchen clean, my dear, and hab a little song.
-W:Poke de wood, my lady lub, and make de fire burn,
-W:And while I take de banjo down, just gib de mush a turn.
-W:Heigh! Nelly Ho! Nelly, listen lub to me,
-W:I'll sing for you, play for you, a dulcet melody.
-W:Heigh! Nelly, Ho! Nelly, listen lub to me,
-W:I'll sing for you, play for you a dulcet melody.
+w:Heigh! Nel-ly Ho! Nel-ly lis-ten love to me, I'll sing for you, play for you, a dul-cet me-lo-dy.

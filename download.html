@@ -1,6 +1,7 @@
 %#THIS FILE IS NOT PART OF MAKE DIST OR MAKE INSTALL
+%#make siteupdate copies it to /home/httpd/html/mason/abc-fakebook/index.html
 
-The package that creates this site is called ABC-Fakebook, and can be used to manage
+The package that creates the ABC tunes site is called ABC-Fakebook, and can be used to manage
 a gallery of ABC tunes.  It requires:
 <p>
 
@@ -20,7 +21,7 @@ and assumes a Unixy environment.
 <div style="margin-left: 40px;">
 <%perl>
 
-my $dir = '/home/httpd/html/foster-abc/software';
+my $dir = '/home/httpd/html/mason/abc-fakebook';
 
 my %outtext = ();
 opendir(DIR, $dir) || die "can't opendir $dir/ $!";
@@ -28,7 +29,7 @@ while (my $file = readdir(DIR)){
     next unless $file =~ /\.tar.gz$/;
     my $age = (stat("$dir/$file"))[9];
     my ($version) = $file =~ /abc-fakebook-(.+?)\.tar.gz/;
-    $outtext{$version} = qq{<a href="software/$file">$file</a> @{[scalar localtime($age)]} <a href="software/$version-Changes.txt">Changes.txt</a><br>};
+    $outtext{$version} = qq{<a href="$file">$file</a> @{[scalar localtime($age)]} <a href="$version-Changes.txt">Changes.txt</a><br>};
 }
 closedir DIR;
 

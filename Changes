@@ -1,6 +1,9 @@
 To Do:
-    - get notes from .abc file and display
     - accept minor, modes for song keys in transpose list
+
+0.05 
+    - handling notes (N:) in abc
+    - using javascript include for signature
 
 0.04 2004-04-22
     - closed <head> and <title> tags in jpg/dhandler (thanks to Jerome Rainey for finding it)

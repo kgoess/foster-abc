@@ -1,4 +1,10 @@
 
+0.02 2004-04-22
+   - removing dhandler in base dir, not used
+   - taking abc files out of distro
+   - adding aftertext, beforetext
+   - tweaking README.txt, adding License
+
 
 0.01 2004-04-18
     - initial version

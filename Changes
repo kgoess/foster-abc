@@ -2,7 +2,11 @@ To Do:
     - get notes from .abc file and display
     - accept minor, modes for song keys in transpose list
 
-0.03 2004-04-23
+0.04 2004-04-22
+    - closed <head> and <title> tags in jpg/dhandler (thanks to Jerome Rainey for finding it)
+    - fixed MIME type for jpg to image/jpeg (thanks again, Jerome)
+
+0.03 2004-04-22
     - getting srcdir from config in index.html
     - adding lots of text to various
     

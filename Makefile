@@ -17,7 +17,7 @@ MASON_DATA_DIR_FLAGS=-C -o $(WEBSERVER_OWNER) -g $(WEBSERVER_GROUP) -m 0755 -d $
 
 # end of user settings
 
-DISTVNAME=abc-fakebook-0.08
+DISTVNAME=abc-fakebook-0.09
 
 
 INSTALL=/usr/bin/install
@@ -31,7 +31,7 @@ COMPRESS = gzip
 
 
 default ::
-	@echo 'usage: make (install|dist)'
+	@echo 'usage: make (install|dist|siteupdate)'
 
 help :: default
 
@@ -78,3 +78,10 @@ $(DISTVNAME).tar.gz : distdir
 	$(RM_RF) $(DISTVNAME)
 	$(COMPRESS) $(DISTVNAME).tar
 
+
+#this is for updating my personal site (kg)
+siteupdate: 
+	cp $(DISTVNAME).tar.gz /home/httpd/html/mason/abc-fakebook/
+	for f in `find abc-src  -maxdepth 1 ! -type d` ; do cp $$f  $(INSTDIR)/abc-src/ ; done
+	cp beforetext aftertext $(INSTDIR)
+	cp download.html /home/httpd/html/mason/abc-fakebook/index.html

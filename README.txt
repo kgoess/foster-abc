@@ -34,7 +34,10 @@ INSTALLATION
 2) Look at the settings in the config component, install the 
    software that's mentioned there, and change to suit.
 
-3) Add to your httpd.conf something like this, and restart apache:
+3) Edit the autohandler component to make your pages look the way 
+   you want.
+
+4) Add to your httpd.conf something like this, and restart apache:
 
     PerlSetVar MasonCompRoot /home/httpd/html/foster-abc
     PerlSetVar MasonDataDir /home/httpd/html/foster-abc/mason
@@ -52,7 +55,7 @@ INSTALLATION
         SetHandler default
     </Location>
 
-4) Type 'make install'.
+5) Type 'make install'.
 
 ===========================================================
 

@@ -1,7 +1,15 @@
+<html>
+<head>
+<title>
+<%$title .'ABC'%>
 <pre>
 <%$text%>
 </pre>
+</html>
 
+<%flags>
+    inherit => undef
+</%flags>
 
 <%args>
 $key
@@ -13,7 +21,7 @@ $songid=>''
 
 ($songid)  ||= $m->dhandler_arg;
 
-my $text = $m->current_comp->call_method('get_abc', key=>$key, t=>$t, songid=>$songid);
+my ($text, $title) = $m->current_comp->call_method('get_abc', key=>$key, t=>$t, songid=>$songid);
 
 </%init>
 
@@ -47,13 +55,14 @@ $songid = substr($songid,0,100);
 my $cache_key = "$songid.$key.$t";
 
 my $text = '';
+my $title;
 
 if ( $text = $m->cache( action => 'retrieve', 
                         key => $cache_key,
-                        expire_if => sub { (stat '$srcdir/$songid.abc')[9] > shift });
-
+                        expire_if => sub { (stat "$srcdir/$songid.abc")[9] > shift },
      ) ) {
-	return $text
+    ($title) = $text =~ /^T:(.+)$/m;
+    return ($text, $title);
 }
 
 
@@ -70,8 +79,10 @@ if (! $t ){
     close PIPE;
 }
 $m->cache( action => 'store', key => $cache_key, value => $text );
+
+($title) = $text =~ /^T:(.+)$/m;
     
-return $text;
+return ($text, $title);
 
 </%init>
 

@@ -1,5 +1,5 @@
 INSTDIR=/home/httpd/html/mason/foster-abc
-FORMAT_DIRS=abc pdf jpg midi
+FORMAT_DIRS=abc pdf jpg midi seeandhear
 
 INSTALL_OWNER=root
 INSTALL_GROUP=root

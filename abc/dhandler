@@ -48,7 +48,11 @@ my $cache_key = "$songid.$key.$t";
 
 my $text = '';
 
-if ( $text = $m->cache( action => 'retrieve', key => $cache_key ) ) {
+if ( $text = $m->cache( action => 'retrieve', 
+                        key => $cache_key,
+                        expire_if => sub { (stat '$srcdir/$songid.abc')[9] > shift });
+
+     ) ) {
 	return $text
 }
 

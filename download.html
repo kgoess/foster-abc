@@ -80,7 +80,7 @@ jpg:
     | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=jpeg -sOutputFile=$tempfilename -q - -c quit 
 
 midi:
-    | abc2midi $tempdir/in.abc -o $tempdir/output.mid
+    | abc2midi - -o $tempdir/output.mid
 
 pdf:
     | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit

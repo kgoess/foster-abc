@@ -1,0 +1,24 @@
+
+ <%method .title>Stephen Foster ABC</%method>
+ 
+ 
+
+  <html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+	<meta name="KEYWORDS" content="abc, music, Foster, fakebook">
+	<meta name="DESCRIPTION" content="Steven Foster ABC Fakebook">
+	<meta name="AUTHOR" content=" Kevin Goess">
+
+
+	<!-- <link rel="stylesheet" type="text/css" href="blahblah.css"> -->
+      <title><& SELF:.title &></title>
+    </head>
+    <body>
+      <center><img src="images/foster-logo.jpg" height="200" width="600"></center>
+      <center><strong>The Stephen Foster ABC Fakebook</strong></center>
+      <hr>
+      <% $m->call_next %>
+    </body>
+  </html>

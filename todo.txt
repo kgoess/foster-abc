@@ -1,0 +1,3 @@
+todo:
+	change abc2ps so we can use it as a pipe
+	solve bidirectional problem with gs

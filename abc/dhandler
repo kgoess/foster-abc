@@ -1,0 +1,76 @@
+<pre>
+<%$text%>
+</pre>
+
+
+<%args>
+$key
+$t=>''
+$songid=>''
+</%args>
+
+<%init>
+
+($songid)  ||= $m->dhandler_arg;
+
+my $text = $m->current_comp->call_method('get_abc', key=>$key, t=>$t, songid=>$songid);
+
+</%init>
+
+# ******************************
+# get_abc METHOD
+# making this a method so that other components
+# can call it and take advantage of its cacheing
+# ******************************
+<%method get_abc>
+<%args>
+$key
+$t=>''
+$songid=>''
+</%args>
+<%init>
+
+my $srcdir = '/home/httpd/html/foster-abc/abc-src';
+
+$key =~ s/[^ABCDEFG#b,]//gi;
+$key = substr($key,0,3);
+
+$t =~ s/[^\d-]//g;
+if ($t > 12 || $t < -12){
+	die "illegal value for t ($t)";
+}
+
+$songid =~ s/\..+//;
+$songid =~ s/[^\w_-]//g;
+$songid = substr($songid,0,100);
+
+my $cache_key = "$songid.$key.$t";
+
+my $text = '';
+
+if ( $text = $m->cache( action => 'retrieve', key => $cache_key ) ) {
+	return $text
+}
+
+
+#if no transposition necessary
+if (! $t ){
+    open (F, "$srcdir/$songid.abc") || die "can't open $srcdir/$songid";
+    local $/ = undef;
+    $text = <F>;
+    close F;
+}else{
+    open (PIPE, "/usr/local/bin/abc2abc $srcdir/$songid.abc -b -t $t |");
+    local $/ = undef;
+    $text = <PIPE>;
+    close PIPE;
+}
+$m->cache( action => 'store', key => $cache_key, value => $text );
+    
+return $text;
+
+</%init>
+
+</%method>
+
+

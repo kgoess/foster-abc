@@ -1,0 +1,148 @@
+<script>
+var transpose = new Array;
+</script>
+<form name="baseform">
+<%perl>
+
+#better way to get this?
+my $srcdir = '/home/httpd/html/foster-abc/abc-src';
+
+opendir(D, $srcdir) || die "can't opendir $srcdir $!";
+
+while (my $file = readdir(D)){
+
+    next unless -f "$srcdir/$file";
+    my ($title, $key);
+    
+    open (F, "$srcdir/$file") || die "can't open $srcdir/$file $!";
+    while (<F>){
+    	s/[\x0A\x0D]+$//;
+	if (/^T:(.+)/){
+	    $title = $1;	
+	}elsif (/^K:(.+)/){
+	     $key = $1;
+	}elsif (! /^[A-Z:]/){
+	     last;
+	}
+    }    
+    close F;
+    $file =~ s/\.abc//;
+    $m->current_comp->call_method('dorow', title=>$title, id=>$file, key=>$key);
+
+}    
+
+</%perl>
+
+</form>
+
+
+
+%# *********************************************
+%# shared
+%# *********************************************
+<%shared>
+my %keypos = ( 
+	'A,'  => 0,       'A'  => 12,  'a'  => 24,
+	'A#,' => 1,       'A#' => 13,  'a#' => 25,
+	'Bb,' => 1,       'Bb' => 13,  'bb' => 25,
+	'B,'  => 2,       'B'  => 14,  'b'  => 26,
+	'C,'  => 3,       'C'  => 15,  'c'  => 27,
+	'C#,' => 4,       'C#' => 16,  'c#' => 28,
+	'Db,' => 4,       'Db' => 16,  'db' => 28,
+	'D,'  => 5,       'D'  => 17,  'd'  => 29,
+	'D#,' => 6,       'D#' => 18,  'd#' => 30,
+	'Eb,' => 6,	  'Eb' => 18,  'eb' => 30,
+	'E,'  => 7,       'E'  => 19,  'e'  => 31,
+	'F,'  => 8,       'F'  => 20,  'f'  => 32,
+	'F#,' => 9,       'F#' => 21,  'f#' => 33,
+	'Gb,' => 9,	  'Gb' => 21,  'gb' => 33,
+	'G,'  => 10,      'G'  => 22,  'g'  => 34,
+	'G#,' => 11,      'G#' => 23,  'g#' => 35,
+	'Ab,' => 11,	  'Ab' => 23,  'ab' => 36,
+);
+
+my %keys_at_pos;
+foreach my $key (keys %keypos){
+     push @{$keys_at_pos{$keypos{$key}}}, $key;
+ }
+
+
+</%shared>
+%# *********************************************
+%# end shared
+%# *********************************************
+
+
+
+%# *********************************************
+%# dorow METHOD
+%# *********************************************
+<%method dorow>
+<%args>
+$id
+$key
+$title
+</%args>
+<%init>
+#this should be in a config file somewhere
+my @outputs = (
+	#display name, directory, filename extension for url
+	[qw(abc abc html)],
+	[qw(jpg jpg jpg)],
+	[qw(pdf pdf pdf)],
+	[qw(midi midi mid)],	
+#	[qw(postscript ps ps)],
+);
+</%init>
+<b><%$title%></b>:
+
+%foreach my $o (@outputs){
+%    my ($display_name, $out_type, $ext) = @$o;
+<a href="javascript:document.location = '<%$out_type%>/<%$id%>.<%$ext%>?key=<%$key%>&t='+document.baseform.keyselect<%$id%>.options[document.baseform.keyselect<%$id%>.selectedIndex].value;"><%$display_name%></a> 
+%}
+<& '/index.html:keyselect', key => $key, id=>$id &>
+<br>
+</%method>
+%# *********************************************
+%# end dorow
+%# *********************************************
+
+
+%# *********************************************
+%# keyselect METHOD
+%# *********************************************
+<%method keyselect>
+<%args>
+$key
+$id
+</%args>
+
+<select name="keyselect<%$id%>" size="1" onchange="javascript:transpose['<%$id%>']=document.baseform.keyselect<%$id%>.options[document.baseform.keyselect<%$id%>.selectedIndex].value;">
+
+<%perl>
+
+my $pos = $keypos{$key};
+
+
+my $NUM_KEYS = 11;
+
+for (my $i=-($NUM_KEYS); $i <= ($NUM_KEYS); ++$i){
+    my ($where, $thispos);	
+    $thispos = $pos + $i;
+    
+    foreach my $thiskey (@{$keys_at_pos{$thispos};}){    
+    	next if ($i == 0 && $thiskey ne $key);
+	my $selected = ($key eq $thiskey ? 'SELECTED' : '');
+	if ($thiskey eq 'C'){
+		$thiskey = '- - C - -';
+	}
+	$m->out( qq{<option VALUE="$i" $selected>$thiskey\n});
+    	
+    }
+}
+</%perl>
+</select>
+</%method>
+%# *********************************************
+%# end keyselect
+%# *********************************************

@@ -1,0 +1,83 @@
+<%once>
+use File::Temp;
+use IPC::Open2;
+</%once>
+<%flags>
+    inherit => undef
+</%flags>
+
+
+<%args>
+$key
+$t=>''
+</%args>
+
+<%init>
+
+my ($songid)  = $m->dhandler_arg;
+
+	#clean up incoming data
+$t =~ s/[^\d-]//g;
+if ($t > 12 || $t < -12){
+	die "illegal value for t ($t)";
+}
+$songid =~ s/\..+//;
+$songid =~ s/[^\w_-]//g;
+$songid = substr($songid,0,100);
+
+	#here's our output method
+my $send_img = sub {
+      $r->content_type( "image/jpg" );
+      $r->send_http_header;
+      $m->out($_[0]);
+      $m->abort(200);
+    };
+
+my $cache_key = "$songid.$key.$t";
+
+	#if it's already in the cache, just return that
+if ( my $data = $m->cache( action => 'retrieve', key => $cache_key ) ) {
+      $send_img->($data);
+}
+
+	#it's not in the cache, get the ABC for this key (that at least 
+	#might be cached)
+my $abctext = $m->comp('/abc/dhandler:get_abc',key=>$key, t=>$t, songid=>$songid);
+
+
+	#Now we're going to convert the ABC to postscript and that to jpeg
+	#using abcm2ps (#see http://moinejf.free.fr/abcm2ps.txt) and 
+	#ghostscript.
+	#We're doing it with a temp file because I can't seem to make bidirectional
+	#pipes (IPC::open2) work in the context of apache/mod_perl :-(
+	#We won't bother cacheing the intermediate postscript, even though
+	#it might be used by other generators, since that would involve
+	#*another* temp file, at least here we can pipe them together.
+
+	#Generate a temp file name, this is the insecure way to do it.
+my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> '/tmp', SUFFIX => '.jpg');
+close $fh;
+
+	#Here's the pipe to the tempfile:
+my $cmd = "/usr/local/bin/abcm2ps - -O- | ".
+	  "/usr/bin/gs -sDEVICE=jpeg -sOutputFile=$tempfilename -q - -c quit";
+
+open (PIPE, "| $cmd") || die "can't open pipe to $cmd $!";
+print PIPE $abctext;
+close PIPE || die "can't close pipe $!";
+
+	#Now we read back from the temp file
+	#who knows what's in it by now :-(
+my $img_data;
+open (F, $tempfilename) || die "can't open $tempfilename $!";
+{ local $/ = undef; $img_data = <F>; }
+close F;
+unlink $tempfilename || die "can't unlink $tempfilename $!";
+
+	#add it to the cache for next time
+$m->cache( action => 'store', key => $cache_key, value => $img_data );
+
+	#and send it out
+$send_img->($img_data);
+
+</%init>

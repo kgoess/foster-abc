@@ -9,10 +9,17 @@ my $srcdir = '/home/httpd/html/foster-abc/abc-src';
 
 opendir(D, $srcdir) || die "can't opendir $srcdir $!";
 
+my @files = ();
+
 while (my $file = readdir(D)){
 
     next unless -f "$srcdir/$file";
     next unless $file =~ /\.abc$/i;
+
+    push @files, $file;
+}
+
+foreach my $file (sort @files) {
     my ($title, $key);
     
     open (F, "$srcdir/$file") || die "can't open $srcdir/$file $!";

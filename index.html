@@ -1,6 +1,12 @@
 <script>
 var transpose = new Array;
 </script>
+
+<& beforetext &>
+
+<hr>
+<h2>The Tunes:</h2>
+
 <form name="baseform">
 <%perl>
 
@@ -45,7 +51,9 @@ foreach my $title (sort keys %files) {
 
 </form>
 
+<& aftertext &>
 
+%#That's the end of the HTML, everything else is Perl.
 
 %# *********************************************
 %# shared
@@ -98,8 +106,8 @@ $title
 my @outputs = (
     #display name, directory, filename extension for url
     [qw(abc abc html)],
+    [qw(pdf pdf pdf)],    
     [qw(jpg jpg jpg)],
-    [qw(pdf pdf pdf)],
     [qw(midi midi mid)],    
 #   [qw(postscript ps ps)],
 );

@@ -1,6 +1,9 @@
 To Do:
     - accept minor, modes for song keys in transpose list
 
+0.08
+    - aha, abc2midi can use stdin instead of a temp file
+
 0.06 
     - tweaks to aftertext
 

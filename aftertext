@@ -1,6 +1,7 @@
 <hr>
 <h2>Jaypegs and midis and stuff, oh my!</h2>
 What are all these three-letter acronym links on this page?
+<p>
 <dl>
 <dt>abc</dt>
    <dd><a href="#abc">ABC</a> is a portable, human readable format for writing down music.
@@ -9,10 +10,30 @@ and shareware.  If you're into music and you don't know about it, you should.</d
 <dt>pdf</dt>
    <dd>Stands for "Portable Document Format", readable by the free <a "href=http://www.adobe.com/products/acrobat/readstep2.html"</a>Adobe Acrobat Reader</a>. Click on 'pdf' to get nice, printable sheet music. These PDF files were created by <a href="#abcm2ps">abcm2ps</a> and <a href="#ghostscript">Ghostscript</a></dd>
 <dt>jpg</dt>
-   <dd>An image of the sheet music.  You can use this if for some reason PDF doesn't work for you. Also created by <a href="#abcm2ps">abcm2ps</a> and <a href="#ghostscript">Ghostscript</a>.</dd>
+   <dd>An image of the sheet music.  You can use this if for some reason PDF doesn't work for you. To zoom in and make the images larger, try clicking on them--the zoom behavior depends on your browser.  Also created by <a href="#abcm2ps">abcm2ps</a> and <a href="#ghostscript">Ghostscript</a>.</dd>
 <dt>midi</dt>
-   <dd>"MIDI" stands for <a href="http://www.midi.org/about-midi/aboutmidi3.shtml">Music Instrument Digital Interface</a>, not that that information is going to help you much, but clicking on that link should make your computer play the tune.  If it doesn't then give that friend of yours who knows computers a call.</dd>
+   <dd>"MIDI" stands for <a href="http://www.midi.org/about-midi/aboutmidi3.shtml">Music Instrument Digital Interface</a>, not that that information is going to help you much, but clicking on that link should make your computer play the tune.  If it doesn't then give that friend of yours who knows computers a call.<br>
+I know mediocre midi is an abomination in the eyes of god (Calliope, anyway), and hardly qualifies to be called "music", but these might be helpful to those who don't read sheet so good, and is certainly helpful when trying to find the right range to sing a tune in.
+</dd>
 </dl>
+
+<hr>
+<h2>Editorializing</h2>
+The problem with Stephen Foster songs is that he was writing in the 1850's, when slavery was a big part of the American culture, and a lot of his songs were written for the minstel shows, where white performers would dress up in blackface and adopt a goofy sentimentality the audiences associated with the black population of the southern plantations.  The slave's life on a southern plantation was portrayed as idyllic and childlike in its innocence.  <a href="http://www.mdarchives.state.md.us/ecp/10/223/0001/html/00010000.html">Recent developments</a> have shown this as not having been the case.
+<p>
+So lyrics in songs like like "Massa's In The Cold Ground" about how sad the slaves were that their owner had just died, or "Old Uncle Ned" about that nice old slave who worked so hard all his life and how sad we are that he's died, become difficult to enjoy for anybody who sensibilities more refined than a cinderblock, indeed are positively objectionable, and at the very least have entirely different connotations today than they did in 1860. They can entirely obscure the great melody. I mean the sentiment was sweet (approaching maudlin), at least he wasn't singing "Oh, how I love whipping my slaves and keeping them down...", but the context and the assumptions just unsupportable.
+
+<p>
+Then you have the songs that are otherwise ok, but then just have to drop in a reference to "darkies", "Old Folks At Home (Swanee River)" has it in the chorus, for crying out loud. What do you do with that?
+
+<p>
+And I'm not any kind of a prude.  I know a number of Violent Femmes songs by heart ("Words memorize, words hypnotize, words make my mouth exercise, But words all fail the magic prize--There's nothing I can say when I'm in your thighs"), I've tapped my toes to Dead Kennedys tunes like "Too Drunk To Fuck" or "Let's Lynch the Landlord", and I think the old Walls of Genius tune <a href="http://aural-innovations.com/2004/january/fyodor02.html">"Everybody's Fucking"</a> makes a great anthem.  But the sentimental slavery thing just bugs the crap out of me, while the old Anglo-Saxon word "fuck" is one of my favorites I recoil at the thought of saying "n-----r", this is my website, and I'm just not going to print any verses that offend me.  If you want to start a "Celebration of Slavery in the 1850's" website, then you're more than welcome.
+
+<p>
+At some point I may add a "View Objectionable Lyrics" button, but it's not going to happen today.
+<p>
+
+So don't look for this to be some authoritative, scholarly source for Steven Foster, I'm only printing as much of the lyrics as I feel like typing at the time. The occasional "darky" reference I'm just going to leave in, I'm not going to bowdlerize him, and there is such a thing as being <i>too</i> sensitive.
 
 <hr>
 <h2>How did you do all this?</h2>
@@ -21,7 +42,7 @@ and shareware.  If you're into music and you don't know about it, you should.</d
 Actually, I did very little, but re-used a lot of very handy things:
 <ul>
     <li><a href="http://www.masonhq.com/">HTML::Mason</a> is a set of Perl libraries
-for building web sites.  Inspired by <a href="http://www.perl.com/pub/a/2004/04/01/masongal.html">this article</a>, I used the caching and autohandling features to build this site.
+for building web sites.  Inspired by <a href="http://www.perl.com/pub/a/2004/04/01/masongal.html">this article</a> about using Mason to build a photo gallery, I used the caching and autohandling features to build this site.
 <p>
 I upload one version of each song in ABC format, and all the other formats in all the other keys are generated on-demand and cached.  The cache is keyed to the original file, so if I make changes to it, the other versions are regenerated when they're requested.
     </li>
@@ -32,10 +53,15 @@ I upload one version of each song in ABC format, and all the other formats in al
     </li>
     <li><a name="ghostscript" href="http://abc.sourceforge.net/abcMIDI/">Ghostscript</a> is a PostScript interpreter, which lets me change the PostScript output from abcm2ps into jpg and PDF files.  Did I mention the GPL?
     </li>
+    <li><a href="http://www.pdinfo.com/source/D230481.htm">The Stephen Foster Song Book</a>, Richard Jackson, Dover Publications, 1974.  This has been a primary reference so far.  A very nice presentation of the original sheet music, I'd highly recommend it.
+    </li>
+    <li>"A Treasury of Stephen Foster", Random House, 1946, is helpful and interesting.
+    </li>
+    <li><a href="http://www.jacquelineschwab.com/recordingsmarktwain.html">Mark Twain's America, A Portrait In Piano"</a> is an album by Jacqueline Schwab, <b>highly</b> recommended if you're looking for ideas and approaches to music of this era.  Someday I expect Jacqueline Schwab's playing to be part of the dictionary entry for the word "sublime."
 
 <hr>
 <h2>Can I Have One, Too?</h2>
-Well, sure, kid.  The ludicrously tiny collection of scripts that generates this site is available right <a href="download.html">here</a>.  It's under the GPL, too.  Help yourself.   
+Well, sure, kid.  The ludicrously tiny collection of scripts that generates this site is available right <a href="download.html">here</a>.  It's under the GPL, too.  Help yourself.  Once the site is up all you have to do is copy .abc files into the abc-src directory and everything else takes care of itself.  
 
 
        

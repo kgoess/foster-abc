@@ -15,16 +15,19 @@ $t=>''
 
 my ($songid)  = $m->dhandler_arg;
 
-	#clean up incoming data
+my $conf = $m->comp('/config');
+
+
+    #clean up incoming data
 $t =~ s/[^\d-]//g;
 if ($t > 12 || $t < -12){
-	die "illegal value for t ($t)";
+    die "illegal value for t ($t)";
 }
 $songid =~ s/\..+//;
 $songid =~ s/[^\w_-]//g;
 $songid = substr($songid,0,100);
 
-	#here's our output method
+    #here's our output method
 my $send_img = sub {
       $r->content_type( "application/pdf" );
       $r->send_http_header;
@@ -34,35 +37,40 @@ my $send_img = sub {
 
 my $cache_key = "$songid.$key.$t";
 
-if ( my $data = $m->cache( action => 'retrieve', key => $cache_key ) ) {
+if ( my $data = $m->cache( 
+            action    => 'retrieve', 
+            key       => $cache_key,
+            expire_if => sub { (stat "$conf->{srcdir}/$songid.abc")[9] > shift },
+     ) ) { 
+
       $send_img->($data);
 }
 
-	#it's not in the cache, get the ABC for this key (that at least 
-	#might be cached)
+    #it's not in the cache, get the ABC for this key (that at least 
+    #might be cached)
 my $abctext = $m->comp('/abc/dhandler:get_abc',key=>$key, t=>$t, songid=>$songid);
 
-	#Generate a temp file name, this is the insecure way to do it.
-my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> '/tmp', SUFFIX => '.jpg');
+    #Generate a temp file name, this is the insecure way to do it.
+my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> $conf->{tmpdir}, SUFFIX => '.jpg');
 close $fh;
 
-	#Here's the pipe to the tempfile:
-my $cmd = "/usr/local/bin/abcm2ps - -O- | ".
-	  "/usr/bin/gs -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit";
+    #Here's the pipe to the tempfile:
+my $cmd = "$conf->{abcm2ps} - -O- 2>/dev/null | ".
+    "$conf->{gs} -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit";
 
 open (PIPE, "| $cmd") || die "can't open pipe to $cmd $!";
 print PIPE $abctext;
 close PIPE || die "can't close pipe $!";
 
-	#Now we read back from the temp file
-	#who knows what's in it by now :-(
+    #Now we read back from the temp file
+    #who knows what's in it by now :-(
 my $img_data;
 open (F, $tempfilename) || die "can't open $tempfilename $!";
 { local $/ = undef; $img_data = <F>; }
 close F;
 unlink $tempfilename || die "can't unlink $tempfilename $!";
 
-	
+
 $m->cache( action => 'store', key => $cache_key, value => $img_data );
 
  

@@ -15,10 +15,11 @@
 	<!-- <link rel="stylesheet" type="text/css" href="blahblah.css"> -->
       <title><& SELF:.title &></title>
     </head>
-    <body>
-      <center><img src="images/foster-logo.jpg" height="200" width="600"></center>
-      <center><strong>The Stephen Foster ABC Fakebook</strong></center>
+    <body background="images/bg1.gif">
+
+      <center><h2><strong>The Stephen Foster ABC Fakebook</strong></h2></center>
       <hr>
       <% $m->call_next %>
+       <center><img src="images/foster-logo.jpg" height="200" width="600"></center>
     </body>
   </html>

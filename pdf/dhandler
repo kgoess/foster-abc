@@ -15,7 +15,8 @@ $t=>''
 
 my ($songid)  = $m->dhandler_arg;
 
-my $conf = $m->comp('/config');
+my $basedir = Apache->request->dir_config('basedir');
+my $conf = $m->comp("/$basedir/config");
 
 
     #clean up incoming data
@@ -48,7 +49,7 @@ if ( my $data = $m->cache(
 
     #it's not in the cache, get the ABC for this key (that at least 
     #might be cached)
-my $abctext = $m->comp('/abc/dhandler:get_abc',key=>$key, t=>$t, songid=>$songid);
+my $abctext = $m->comp("/$basedir/abc/dhandler:get_abc",key=>$key, t=>$t, songid=>$songid);
 
     #Generate a temp file name, this is the insecure way to do it.
 my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> $conf->{tmpdir}, SUFFIX => '.jpg');

@@ -38,15 +38,27 @@ help :: default
 
 install ::
 	$(INSTALL) $(DIR_FLAGS) -d $(INSTDIR)
-	$(INSTALL) $(FILE_FLAGS) index.html autohandler config $(INSTDIR)
+	$(INSTALL) $(FILE_FLAGS) index.html $(INSTDIR)
 	@if [ ! -e $(INSTDIR)/beforetext ] ; then \
 		$(INSTALL) $(FILE_FLAGS) beforetext $(INSTDIR) ; \
+	else \
+		echo WARNING: not overwriting beforetext ; \
 	fi
 	@if [ ! -e $(INSTDIR)/aftertext ] ; then \
-		echo ****** installing aftertext ;\
 		$(INSTALL) $(FILE_FLAGS) aftertext $(INSTDIR) ; \
+	else \
+		echo WARNING: not overwriting aftertext ; \
 	fi
-
+	@if [ ! -e $(INSTDIR)/autohandler ] ; then \
+		$(INSTALL) $(FILE_FLAGS) autohandler $(INSTDIR) ; \
+	else \
+		echo WARNING: not overwriting autohandler ; \
+	fi
+	@if [ ! -e $(INSTDIR)/config ] ; then \
+		$(INSTALL) $(FILE_FLAGS) config $(INSTDIR) ; \
+	else \
+		echo WARNING: not overwriting config ; \
+	fi
 	for d in $(FORMAT_DIRS) ; do \
 		$(INSTALL) $(DIR_FLAGS) -d $(INSTDIR)/$$d ;\
 		$(INSTALL) $(FILE_FLAGS) $$d/dhandler $(INSTDIR)/$$d/ ;\

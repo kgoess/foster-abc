@@ -46,7 +46,7 @@ for building web sites.  Inspired by <a href="http://www.perl.com/pub/a/2004/04/
 <p>
 I upload one version of each song in ABC format, and all the other formats in all the other keys are generated on-demand and cached.  The cache is keyed to the original file, so if I make changes to it, the other versions are regenerated when they're requested.
     </li>
-    <li><a name="abc" href="http://staffweb.cms.gre.ac.uk/~c.walshaw/abc/">ABC</a> is a simple, portable way to transcribe music that's been around for more than a dozen years.  Since it's simple and also open, it's inspired a whole bunch of useful free software around it, including some of the following.
+    <li><a name="abc">ABC</a>(<a href="http://staffweb.cms.gre.ac.uk/~c.walshaw/abc/">tutorial</a> <a href="http://abc.sourceforge.net/standard/abc2midi.txt">reference</a>) is a simple, portable way to transcribe music that's been around for more than a dozen years.  Since it's simple and also open, it's inspired a whole bunch of useful free software around it, including some of the following.
     <li><a href="http://moinejf.free.fr/">abcm2ps</a> is software that converts ABC music to PostScript, a printer format developed by Adobe. abcm2ps is released under the <a href="http://www.gnu.org/licenses/licenses.html#GPL">GNU General Public License (GPL)</a> and PostScript is an open standard, and all these free and open standards make all this work possible!
      </li>
     <li>abc2midi and abc2abc are programs from the <a href="http://abc.sourceforge.net/abcMIDI/">abcMIDI project</a>, also released under the GNU GPL.  The former creates the midi files on the site, and the latter handles transposing keys.
@@ -66,7 +66,7 @@ Well, sure, kid.  The ludicrously tiny collection of scripts that generates this
 <p>
 Your comments are welcome: 
 <script language="JavaScript"
-        src="http://www.goess.org/getSignature.js">
+        src="http://www.goess.org/fosterSig.js">
 </script>
 
 April 2004

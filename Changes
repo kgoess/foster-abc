@@ -1,6 +1,9 @@
 To Do:
     - accept minor, modes for song keys in transpose list
 
+0.06 
+    - tweaks to aftertext
+
 0.05 
     - handling notes (N:) in abc
     - using javascript include for signature

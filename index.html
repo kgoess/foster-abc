@@ -13,8 +13,8 @@ Pick your key and click on a format.
 <form name="baseform">
 <%perl>
 
-#better way to get this?
-my $srcdir = '/home/httpd/html/foster-abc/abc-src';
+my $conf = $m->comp('/config');
+my $srcdir = $conf->{srcdir};
 
 opendir(D, $srcdir) || die "can't opendir $srcdir $!";
 
@@ -53,6 +53,8 @@ foreach my $title (sort keys %files) {
 </%perl>
 
 </form>
+
+More tunes may follow as I get the time to enter them, someday.
 
 <& aftertext &>
 

@@ -56,3 +56,27 @@ INSTALLATION
 
 ===========================================================
 
+OVERVIEW
+
+The site is set up like this:
+
+	autohandler
+	config
+	index.html
+	abc-src/
+		*.abc (the source abc files)
+	abc/
+		dhandler
+	pdf/
+		dhandler
+	jpg/
+		dhandler
+	midi/
+		dhandler
+
+Requests to urls for abc/, pdf/, jpg/ or midi/ are handled by the dhandler in 
+that directory which takes care of generating the requested file and caching
+it for future use.
+
+
+

@@ -2,6 +2,8 @@
 <head>
 <title>
 <%$title .'ABC'%>
+</title>
+</head>
 <pre>
 <%$text%>
 </pre>

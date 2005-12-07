@@ -167,7 +167,7 @@ my $pos = $keypos{$key} ;
 
 my $NUM_KEYS = 11;
 
-for (my $i=-($NUM_KEYS); $i <= ($NUM_KEYS); ++$i){
+for (my $i=($NUM_KEYS); $i >= -($NUM_KEYS); --$i){
     my ($where, $thispos);  
     $thispos = $pos + $i;
     

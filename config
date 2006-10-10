@@ -14,7 +14,18 @@ return {
     gs      => '/usr/bin/gs',
 
     #place for temp files, needs to be writeable by apache owner
-    tmpdir => '/tmp'
+    tmpdir => '/tmp',
+
+    outputs => [
+        #display name, directory, filename extension for url
+        [qw(abc abc html)],
+        [qw(pdf pdf pdf)],
+        [qw(jpg jpg jpg)],
+        [qw(midi midi mid)],
+        ['See&Hear',qw(seeandhear html)],
+    #   [qw(postscript ps ps)],
+    ],
+
 };
 
 

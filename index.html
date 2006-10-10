@@ -144,7 +144,7 @@ my $conf = $m->comp("/$basedir/config");
 %   my $base = "$out_type/$id.$ext?key=$key";
 <a id="<%$id%>-<%$out_type%>" abc:base="<%$base%>" href="<%$base%>&t=0" ><%$display_name%></a> 
 %}
-<& "/$basedir/index2.html:keyselect", key => $key, id=>$id &>
+<& "/$basedir/index.html:keyselect", key => $key, id=>$id &>
 </TD>
 <TD WIDTH="30%" ALIGN="RIGHT"><FONT SIZE="-1"><I><%$notes%></I></FONT></TD>
 </TR>

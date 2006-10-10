@@ -1,5 +1,16 @@
 <script>
 var transpose = new Array;
+
+function changekey (select_el, song_id) {
+    var transpose_to = select_el.options[select_el.selectedIndex].value;
+    var song_link, base_uri;
+%   foreach my $o (@{$conf->{outputs}}){ 
+%       my ($display_name, $out_type, $ext) = @$o;
+        song_link = document.getElementById(song_id + "-<%$out_type%>");
+        base_uri = song_link.getAttribute('abc:base');
+        song_link.href= base_uri + "&t=" + transpose_to;
+%    }
+}
 </script>
 
 <& beforetext &>
@@ -12,10 +23,12 @@ Pick your key and click on a format.
 
 <form name="baseform">
 <table BORDER="1">
-<%perl>
-
+<%init>
 my $basedir = Apache->request->dir_config('basedir');
 my $conf = $m->comp("/$basedir/config");
+</%init>
+<%perl>
+
 my $srcdir = $conf->{srcdir};
 
 opendir(D, $srcdir) || die "can't opendir $srcdir $!";
@@ -120,26 +133,18 @@ $title
 $notes=>''
 </%args>
 <%init>
-#this should be in a config file somewhere
-my @outputs = (
-    #display name, directory, filename extension for url
-    [qw(abc abc html)],
-    [qw(pdf pdf pdf)],    
-    [qw(jpg jpg jpg)],
-    [qw(midi midi mid)],    
-    ['See&Hear',qw(seeandhear html)],    
-#   [qw(postscript ps ps)],
-);
 my $basedir = Apache->request->dir_config('basedir');
+my $conf = $m->comp("/$basedir/config");
 </%init>
 <TR>
 <TD><b><%$title%></b>:
 
-%foreach my $o (@outputs){
+%foreach my $o (@{$conf->{outputs}}){
 %    my ($display_name, $out_type, $ext) = @$o;
-<a href="javascript:document.location = '<%$out_type%>/<%$id%>.<%$ext%>?key=<%$key%>&t='+document.baseform.keyselect<%$id%>.options[document.baseform.keyselect<%$id%>.selectedIndex].value;"><%$display_name%></a> 
+%   my $base = "$out_type/$id.$ext?key=$key";
+<a id="<%$id%>-<%$out_type%>" abc:base="<%$base%>" href="<%$base%>&t=0" ><%$display_name%></a> 
 %}
-<& "/$basedir/index.html:keyselect", key => $key, id=>$id &>
+<& "/$basedir/index2.html:keyselect", key => $key, id=>$id &>
 </TD>
 <TD WIDTH="30%" ALIGN="RIGHT"><FONT SIZE="-1"><I><%$notes%></I></FONT></TD>
 </TR>
@@ -158,7 +163,7 @@ $key
 $id
 </%args>
 
-<select name="keyselect<%$id%>" size="1" onchange="javascript:transpose['<%$id%>']=document.baseform.keyselect<%$id%>.options[document.baseform.keyselect<%$id%>.selectedIndex].value;">
+<SELECT name="keyselect<%$id%>" size="1" onchange="changekey(this, '<%$id%>')">
 
 <%perl>
 
@@ -199,7 +204,7 @@ for (my $i=($NUM_KEYS); $i >= -($NUM_KEYS); --$i){
     $m->out( qq{<option VALUE="$i" $selected>$thesekeys\n});
 }
 </%perl>
-</select>
+</SELECT>
 </%method>
 %# *********************************************
 %# end keyselect

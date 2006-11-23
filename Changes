@@ -1,6 +1,14 @@
 To Do:
     - accept minor, modes for song keys in transpose list
 
+0.11
+    - now the links are regular links, not javascript: ones, so you can
+      open them up in separate tabs, etc.
+
+0.10 
+    - fixing sort order of list-of-keys dropdowns so high is up
+    
+
 0.09 2005-02-05
     - adding See&Hear target, faking key handling for minor, modes
     - make install shouldn't overrwrite beforetext, aftertext since the

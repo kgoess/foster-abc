@@ -65,12 +65,7 @@ print F $abctext;
 close F;
 
 	#Here's the pipe to the tempfile:
-#my $cmd = "$conf->{abc2midi} $dir/in.abc -o $dir/output.mid";
 my $cmd = "$conf->{abc2midi} - -o $dir/output.mid";
-#`$cmd`;  #needs error checking
-open (T, ">/tmp/kgtest");
-print T "$cmd\n";
-close T;
 open (PIPE, "| $cmd ") || die "can't open pipe to $cmd $!";
 print PIPE $abctext;
 close PIPE || die "can't close pipe $!";

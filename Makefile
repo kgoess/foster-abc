@@ -17,7 +17,7 @@ MASON_DATA_DIR_FLAGS=-C -o $(WEBSERVER_OWNER) -g $(WEBSERVER_GROUP) -m 0755 -d $
 
 # end of user settings
 
-DISTVNAME=abc-fakebook-0.09
+DISTVNAME=abc-fakebook-0.11
 
 
 INSTALL=/usr/bin/install

@@ -85,6 +85,10 @@ midi:
 
 pdf:
     | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit
+
+abc: (transpose)
+       abc2abc $path-to-file.abc -b -t $t |
+ 
 </pre>
 
 <hr>

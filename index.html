@@ -4,12 +4,18 @@ var transpose = new Array;
 function changekey (select_el, song_id) {
     var transpose_to = select_el.options[select_el.selectedIndex].value;
     var song_link, base_uri;
+    var output_types = new Array();
+    var x = 0;
+%   my $i = 0;
 %   foreach my $o (@{$conf->{outputs}}){ 
 %       my ($display_name, $out_type, $ext) = @$o;
-        song_link = document.getElementById(song_id + "-<%$out_type%>");
+    output_types[<%$i++%>] = "-<%$out_type%>";
+%    }
+    for (x in output_types){
+        song_link = document.getElementById(song_id + output_types[x]);
         base_uri = song_link.getAttribute('abc:base');
         song_link.href= base_uri + "&t=" + transpose_to;
-%    }
+    }
 }
 </script>
 

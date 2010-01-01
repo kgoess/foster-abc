@@ -15,7 +15,7 @@ $t=>''
 
 my ($songid)  = $m->dhandler_arg;
 
-my $basedir = Apache->request->dir_config('basedir');
+my $basedir = $r->dir_config('basedir');
 my $conf = $m->comp("/$basedir/config");
 
 
@@ -31,7 +31,7 @@ $songid = substr($songid,0,100);
     #here's our output method
 my $send_img = sub {
       $r->content_type( "image/jpeg" );
-      $r->send_http_header;
+#not in apache2      $r->send_http_header;
       $m->out($_[0]);
       $m->abort(200);
     };

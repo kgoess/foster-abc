@@ -40,7 +40,7 @@ $songid=>''
 </%args>
 <%init>
 
-my $basedir = Apache->request->dir_config('basedir');
+my $basedir = $r->dir_config('basedir');
 my $conf = $m->comp("/$basedir/config");
 my $srcdir = $conf->{srcdir};
 

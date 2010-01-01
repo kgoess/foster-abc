@@ -30,7 +30,7 @@ Pick your key and click on a format.
 <form name="baseform">
 <table BORDER="1">
 <%init>
-my $basedir = Apache->request->dir_config('basedir');
+my $basedir = $r->dir_config('basedir');
 my $conf = $m->comp("/$basedir/config");
 </%init>
 <%perl>
@@ -139,7 +139,7 @@ $title
 $notes=>''
 </%args>
 <%init>
-my $basedir = Apache->request->dir_config('basedir');
+my $basedir = $r->dir_config('basedir');
 my $conf = $m->comp("/$basedir/config");
 </%init>
 <TR>

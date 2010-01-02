@@ -41,8 +41,9 @@ INSTALLATION
 
     PerlSetVar MasonCompRoot /var/www/html/foster-abc
     PerlSetVar MasonDataDir /var/www/html/foster-abc/mason
-    #PerlSetVar MasonUseDataCache 1
     PerlModule HTML::Mason::ApacheHandler
+    PerlSetVar MasonDataCacheApi 1.0
+
     <Location /foster-abc>
         SetHandler perl-script
         PerlHandler HTML::Mason::ApacheHandler

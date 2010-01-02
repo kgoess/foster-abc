@@ -6,7 +6,7 @@ return {
     srcdir  => $r->dir_config('MasonCompRoot').'/'.$r->dir_config('basedir').'/abc-src',
 
     #path to various executables
-    abcm2ps => '/usr/local/bin/abcm2ps',
+    jcabc2ps => '/usr/local/bin/jcabc2ps',
     abc2abc => '/usr/local/bin/abc2abc',
     abc2midi => '/usr/local/bin/abc2midi',
 

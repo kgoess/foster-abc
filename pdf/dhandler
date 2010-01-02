@@ -31,7 +31,7 @@ $songid = substr($songid,0,100);
     #here's our output method
 my $send_img = sub {
       $r->content_type( "application/pdf" );
-      $r->send_http_header;
+      #not in apache2 $r->send_http_header;
       $m->out($_[0]);
       $m->abort(200);
     };
@@ -56,8 +56,9 @@ my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> $conf->{tmpdir}, SUFFIX => 
 close $fh;
 
     #Here's the pipe to the tempfile:
-my $cmd = "$conf->{abcm2ps} - -O- 2>/dev/null | ".
+my $cmd = "$conf->{jcabc2ps} 2>/dev/null | ".
     "$conf->{gs} -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit";
+#print STDERR "cmd is $cmd\n";
 
 open (PIPE, "| $cmd") || die "can't open pipe to $cmd $!";
 print PIPE $abctext;

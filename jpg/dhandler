@@ -53,11 +53,11 @@ my $abctext = $m->comp("/$basedir/abc/dhandler:get_abc",key=>$key, t=>$t, songid
 
 
     #Now we're going to convert the ABC to postscript and that to jpeg
-    #using abcm2ps (#see http://moinejf.free.fr/abcm2ps.txt) and 
+    #using jcabc2ps (#see http://abc.sourceforge.net/jcabc2ps/) and 
     #ghostscript.
     #We're doing it with a temp file because I can't seem to make bidirectional
     #pipes (IPC::open2) work in the context of apache/mod_perl :-(
-    #We won't bother cacheing the intermediate postscript, even though
+    #We won't bother caching the intermediate postscript, even though
     #it might be used by other generators, since that would involve
     #*another* temp file, at least here we can pipe them together.
 
@@ -66,8 +66,9 @@ my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> $conf->{tmpdir}, SUFFIX => 
 close $fh;
 
     #Here's the pipe to the tempfile:
-my $cmd = "$conf->{abcm2ps} - -O- 2>/dev/null | ".
+my $cmd = "$conf->{jcabc2ps} 2>/dev/null | ".
       "$conf->{gs} -sDEVICE=jpeg -sOutputFile=$tempfilename -q - -c quit";
+#print STDERR "cmd was $cmd\n";
 
 open (PIPE, "| $cmd") || die "can't open pipe to $cmd $!";
 print PIPE $abctext;

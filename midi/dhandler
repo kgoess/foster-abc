@@ -32,7 +32,7 @@ $songid = substr($songid,0,100);
 	#here's our output method
 my $send_img = sub {
       $r->content_type( "audio/midi" );
-      $r->send_http_header;
+      #not in apache2 $r->send_http_header;
       $m->out($_[0]);
       $m->abort(200);
     };
@@ -66,6 +66,7 @@ close F;
 
 	#Here's the pipe to the tempfile:
 my $cmd = "$conf->{abc2midi} - -o $dir/output.mid";
+#print STDERR "cmd is $cmd\n";
 open (PIPE, "| $cmd ") || die "can't open pipe to $cmd $!";
 print PIPE $abctext;
 close PIPE || die "can't close pipe $!";

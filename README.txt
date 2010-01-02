@@ -13,12 +13,12 @@ Requirements:
 
 ABC-Fakebook was developed with the following software:
 
-	Apache 1.3.26
-	Perl 5.6.1
-	HTML::Mason 1.04
-	Ghostscript 5.5
-	abcm2ps 3.7.18
-	abcmidi 1.41
+	Apache 2.2.3
+	Perl 5.8.8
+	HTML::Mason 1.43
+	Ghostscript 8.15.2
+	jcabc2ps 20090209
+	abcmidi 20091221
 
 THE SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTIES OF ANY KIND,
 INCLUDING, WITHOUT LIMITATION, ANY WARRANTIES OF ACCURACY OR
@@ -39,21 +39,19 @@ INSTALLATION
 
 4) Add to your httpd.conf something like this, and restart apache:
 
-    PerlSetVar MasonCompRoot /home/httpd/html/foster-abc
-    PerlSetVar MasonDataDir /home/httpd/html/foster-abc/mason
-    PerlSetVar MasonUseDataCache 1
+    PerlSetVar MasonCompRoot /var/www/html/foster-abc
+    PerlSetVar MasonDataDir /var/www/html/foster-abc/mason
+    #PerlSetVar MasonUseDataCache 1
     PerlModule HTML::Mason::ApacheHandler
     <Location /foster-abc>
         SetHandler perl-script
         PerlHandler HTML::Mason::ApacheHandler
     </Location>
-    <LocationMatch "(dhandler|autohandler)$">
-        SetHandler perl-script
-        PerlInitHandler Apache::Constants::NOT_FOUND
-    </LocationMatch>
     <Location /foster-abc/images>
         SetHandler default
     </Location>
+    RedirectMatch 404 (dhandler|autohandler)$
+    RewriteRule   /mason-data/         / [R]
 
 5) Type 'make install'.
 

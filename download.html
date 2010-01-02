@@ -10,7 +10,7 @@ a gallery of ABC tunes.  It requires:
 	Perl<br>
 	HTML::Mason<br>
 	Ghostscript<br>
-	abcm2ps<br>
+	jcabc2ps<br>
 	abc2midi<br>
 </div>
 <p>
@@ -78,13 +78,13 @@ If you're curious, the commands used to generate the output looks like this:
 
 <pre>
 jpg:
-    | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=jpeg -sOutputFile=$tempfilename -q - -c quit 
+    | jcabc2ps 2>/dev/null | gs -sDEVICE=jpeg -sOutputFile=$tempfilename -q - -c quit 
 
 midi:
     | abc2midi - -o $tempdir/output.mid
 
 pdf:
-    | abcm2ps - -O- 2>/dev/null | gs -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit
+    | jcabc2ps 2>/dev/null | gs -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit
 
 abc: (transpose)
        abc2abc $path-to-file.abc -b -t $t |

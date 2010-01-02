@@ -21,7 +21,7 @@ DISTVNAME=abc-fakebook-0.11
 
 
 INSTALL=/usr/bin/install
-PERL=/usr/local/bin/perl
+PERL=/usr/bin/perl
 RM_RF = /bin/rm -rf
 SUFFIX = .gz
 TAR = /bin/tar
@@ -42,24 +42,24 @@ install ::
 	@if [ ! -e $(INSTDIR)/beforetext ] ; then \
 		$(INSTALL) $(FILE_FLAGS) beforetext $(INSTDIR) ; \
 	else \
-		echo WARNING: not overwriting beforetext ; \
+		echo ***WARNING***: not overwriting existing $(INSTDIR)/beforetext ; \
 	fi
 	@if [ ! -e $(INSTDIR)/aftertext ] ; then \
 		$(INSTALL) $(FILE_FLAGS) aftertext $(INSTDIR) ; \
 	else \
-		echo WARNING: not overwriting aftertext ; \
+		echo ***WARNING***: not overwriting existing $(INSTDIR)/aftertext ; \
 	fi
 	@if [ ! -e $(INSTDIR)/autohandler ] ; then \
 		$(INSTALL) $(FILE_FLAGS) autohandler $(INSTDIR) ; \
 	else \
-		echo WARNING: not overwriting autohandler ; \
+		echo ***WARNING***: not overwriting existing $(INSTDIR)/autohandler ; \
 	fi
 	@if [ ! -e $(INSTDIR)/config ] ; then \
 		$(INSTALL) $(FILE_FLAGS) config $(INSTDIR) ; \
 	else \
-		echo WARNING: not overwriting config ; \
+		echo ***WARNING***: not overwriting existing $(INSTDIR)/config ; \
 	fi
-	for d in $(FORMAT_DIRS) ; do \
+	@for d in $(FORMAT_DIRS) ; do \
 		$(INSTALL) $(DIR_FLAGS) -d $(INSTDIR)/$$d ;\
 		$(INSTALL) $(FILE_FLAGS) $$d/dhandler $(INSTDIR)/$$d/ ;\
 		done

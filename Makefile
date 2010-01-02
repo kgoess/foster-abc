@@ -94,6 +94,8 @@ $(DISTVNAME).tar.gz : distdir
 #this is for updating my personal site (kg)
 siteupdate: 
 	cp $(DISTVNAME).tar.gz /home/httpd/html/mason/abc-fakebook/
+	cp $(DISTVNAME).tar.gz /home/httpd/html/foster-abc/software/
 	for f in `find abc-src  -maxdepth 1 ! -type d` ; do cp $$f  $(INSTDIR)/abc-src/ ; done
 	cp beforetext aftertext $(INSTDIR)
 	cp download.html /home/httpd/html/mason/abc-fakebook/index.html
+        

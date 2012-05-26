@@ -55,14 +55,22 @@ my $abctext = $m->comp("/$basedir/abc/dhandler:get_abc",key=>$key, t=>$t, songid
 my ($fh, $tempfilename) = File::Temp::tempfile(DIR=> $conf->{tmpdir}, SUFFIX => '.jpg');
 close $fh;
 
-if (! $conf->{jcabc2ps}){
-   die "jcabc2ps isn't set in your config, maybe you have an old version?";
-}elsif ( ! -e $conf->{jcabc2ps}){
-   die "Can't find $conf->{jcabc2ps}, not installed?";
+if (! $conf->{abcm2ps}){
+   die "abcm2ps isn't set in your config, maybe you have an old version?";
+}elsif ( ! -e $conf->{abcm2ps}){
+   die "Can't find $conf->{abcm2ps}, not installed?";
 }
+
+# Regex from http://cpansearch.perl.org/src/MARKF/Test-utf8-1.00/lib/Test/utf8.pm
+my $is_ascii_only = ($abctext =~ /([^\x{00}-\x{7f}])/x ? 0 : 1); 
+# Need to embed fonts if non-ascii characters are present, some machines
+# (ipad2, android phone) may not have them.  But embedding the fonts makes
+# the file bigger (27k instead of 14k) so only do it if necessary.
+my $embed_fonts = $is_ascii_only ? '' : '-dPDFSETTINGS=/printer';
+
     #Here's the pipe to the tempfile:
-my $cmd = "$conf->{jcabc2ps} 2>/dev/null | ".
-    "$conf->{gs} -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - -c quit";
+my $cmd = "$conf->{abcm2ps} - -O - 2>/dev/null | ".
+    "$conf->{gs} -dSAFER  -dNOPAUSE -dBATCH $embed_fonts -sDEVICE=pdfwrite -sOutputFile=$tempfilename -q - ";
 #print STDERR "cmd is $cmd\n";
 
 open (PIPE, "| $cmd") || die "can't open pipe to $cmd $!";

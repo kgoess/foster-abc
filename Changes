@@ -1,6 +1,15 @@
 To Do:
     - accept minor, modes for song keys in transpose list
 
+0.14 2012-05-26 adding -dPDFSETTINGS=/printer to the gs calls when non-ascii
+     characters are present will embed the fonts in the pdf to make sure they're
+     always preset (was a problem on ipad and android). Also fixing up the gs 
+     arguments to be more sane.
+
+0.13 2012-05-21
+   - ***config change***: went back to abcm2ps, the latest version 7.0.7 handles 
+     utf-8 characters correctly, jcabc2ps doesn't
+
 0.12 2010-01-02
    - ***config change***: replaced abcm2ps with jcabc2ps, you'll need to update your config file
    - other updates to make work with latest HTTP:Mason, Apache2

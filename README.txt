@@ -17,7 +17,7 @@ ABC-Fakebook was developed with the following software:
 	Perl 5.8.8
 	HTML::Mason 1.43
 	Ghostscript 8.15.2
-	jcabc2ps 20090209
+	abcm2ps 7.0.7
 	abcmidi 20091221
 
 THE SOFTWARE IS PROVIDED "AS IS" AND WITHOUT WARRANTIES OF ANY KIND,

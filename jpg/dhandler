@@ -72,7 +72,7 @@ if (! $conf->{abcm2ps}){
 }
     #Here's the pipe to the tempfile:
 my $cmd = "$conf->{abcm2ps} - -O - 2>/dev/null | ".
-      "$conf->{gs} -dSAFER  -dNOPAUSE -dBATCH -sDEVICE=jpeg -sOutputFile=$tempfilename -q - ";
+      "$conf->{gs} -dSAFER  -dNOPAUSE -dBATCH -r300x300 -sDEVICE=jpeg -sOutputFile=$tempfilename -q - ";
 #print STDERR "cmd was $cmd\n";
 
 open (PIPE, "| $cmd") || die "can't open pipe to $cmd $!";
